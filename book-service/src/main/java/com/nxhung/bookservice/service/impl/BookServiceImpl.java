@@ -7,9 +7,13 @@ import com.nxhung.bookservice.entities.BookEntity;
 import com.nxhung.bookservice.mappers.BookMapper;
 import com.nxhung.bookservice.repository.BookRepository;
 import com.nxhung.bookservice.service.BookService;
+import com.nxhung.common.dtos.PagingQueryParams;
 import com.nxhung.common.exceptions.ResourceNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -39,13 +43,13 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookResponseDto> getAllBook(BookQueryParams params) {
-        Collection<BookEntity> books;
-        if (params != null) {
-            books = bookRepository.getBookByQueryParams(params);
-        } else {
-            books = bookRepository.findAll();
+    public List<BookResponseDto> getAllBook(BookQueryParams params, PagingQueryParams pageable) {
+        Page<BookEntity> books;
+        var paramsProcess = params;
+        if (paramsProcess == null) {
+            paramsProcess = new BookQueryParams();
         }
+        books = bookRepository.getBookByQueryParams(paramsProcess, pageable);
         return books.stream().map(BookMapper::toDto).toList();
     }
 }

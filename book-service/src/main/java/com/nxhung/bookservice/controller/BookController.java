@@ -6,8 +6,13 @@ import com.nxhung.bookservice.dtos.BookResponseDto;
 import com.nxhung.bookservice.service.BookService;
 import com.nxhung.common.dtos.BaseResponseDto;
 import com.nxhung.common.dtos.NoResponseDto;
+import com.nxhung.common.dtos.PagingQueryParams;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.Param;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -34,8 +39,12 @@ public class BookController {
 
 
     @GetMapping
-    protected ResponseEntity<BaseResponseDto<List<BookResponseDto>>> getAllBookByCondition(BookQueryParams params) {
-        var books = bookService.getAllBook(params);
+    protected ResponseEntity<BaseResponseDto<List<BookResponseDto>>> getAllBookByCondition(
+            BookQueryParams params,
+            PagingQueryParams pageable
+    ) {
+
+        var books = bookService.getAllBook(params, pageable);
         var response = BaseResponseDto.<List<BookResponseDto>>builder()
                 .success(true)
                 .status(HttpStatus.OK)

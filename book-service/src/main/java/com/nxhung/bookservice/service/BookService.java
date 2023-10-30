@@ -4,7 +4,9 @@ import com.nxhung.bookservice.dtos.BookQueryParams;
 import com.nxhung.bookservice.dtos.BookRequestDto;
 import com.nxhung.bookservice.dtos.BookResponseDto;
 import com.nxhung.common.dtos.BaseResponseDto;
+import com.nxhung.common.dtos.PagingQueryParams;
 import com.nxhung.common.exceptions.ResourceNotFoundException;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,8 +32,9 @@ public interface BookService {
      * Get all books
      *
      * @param params contain query condition to get books
+     * @param pageable size of page
      * @return list of book match query params condition
      */
-    List<BookResponseDto> getAllBook(BookQueryParams params);
+    List<BookResponseDto> getAllBook(BookQueryParams params, PagingQueryParams pageable);
 
 }

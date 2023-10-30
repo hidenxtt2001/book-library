@@ -9,12 +9,10 @@ import org.springframework.context.annotation.ComponentScans;
 @SpringBootApplication
 @EnableDiscoveryClient
 @ComponentScan(
-        value = {"com.nxhung.common.*","com.nxhung.bookservice.*"}
+        value = {"com.nxhung.common.*", "com.nxhung.bookservice.*"}
 )
 public class BookServiceApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(BookServiceApplication.class, args);
     }
-
 }

@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class BookRequestDto {
+public class BookRequestDto  {
     @Size(min = 3,max = 20,message = "Name must greater than 3")
     @NotEmpty(message = "Name must not be empty")
     @NotNull(message = "Name must not be null")
